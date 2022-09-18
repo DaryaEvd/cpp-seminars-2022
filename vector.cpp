@@ -32,6 +32,7 @@ class vector {
 		capacity = new_capacity;
 
 		delete[] new_data;
+		data = new_data;
 	}
 
         int size() {
@@ -49,4 +50,3 @@ int main(int argc, char **argv) {
         // vector v1;
         // v1.size();
 }
-
