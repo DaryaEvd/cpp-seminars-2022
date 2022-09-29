@@ -1,4 +1,3 @@
-
 #include "vector.hpp"
 
 #include <algorithm>
@@ -8,32 +7,7 @@
 vector::vector(int capacity)
 	: capacity_(capacity), size_(0), data_(new int[capacity]) {}
 
-~vector() { delete[] data_;}
-
-// adds element to the last avaialable position,
-// resizes vector if current capacity is reached
-void vector:: push_back(int num)
-{
-	if (this->size_ < this->capacity_){
-		this->data_[this->size_] = num;
-		size_ ++;
-	}
-	resize (2 * capacity_);
-}
-
-int size(){ return this->size_; }
-
-void vector::set(int num, int idx)
-{
-	data_[idx] = num;
-}
-
-int vector:: at(int idx)
-{
-	return data_[idx];
-}
-
-vector::vector (const vector &other)
+vector::vector(const vector &other)
 	: capacity_(other.capacity_),
 	  size_(other_size_),
 	  data_(new int[capacity])
@@ -55,6 +29,21 @@ int &vector::operator[](size_t idx)
 	return data_[idx];
 }
 
+// adds element to the last avaialable position,
+// resizes vector if current capacity is reached
+void vector:: push_back(int num)
+{
+	if (this->size_ < this->capacity_){
+		this->data_[this->size_] = num;
+		size_ ++;
+	}
+	resize (2 * capacity_);
+}
+
+int size(){ return this->size_; }
+
+~vector() { delete[] data_;}
+
 // resizes vector to given capacity
 void vector::resize(int newCapacity)
 {
@@ -65,9 +54,8 @@ void vector::resize(int newCapacity)
 	capacity_ = newCapacity;
 }
 
-
-
 int main(int argc, char **argv)
 {
 	vector v;
 }
+
