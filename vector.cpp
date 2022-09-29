@@ -1,104 +1,66 @@
+#include "vector.hpp"
+
+#include <algorithm>
 #include <cassert>
 #include <iostream>
 
-class vector
+vector::vector(int capacity)
+	: capacity_(capacity), size_(0), data_(new int[capacity]) {}	
+
+~vector() { delete[] data_;}
+
+// adds element to the last avaialable position,
+// resizes vector if current capacity is reached
+void vector:: push_back(int num)
 {
-        vector(int capacity)
-       	{
-                this->capacity_ = capacity;
-                this->size_ = 0;
-                this->data_ = new int[capacity]();
-        }
-
-        ~vector() 
-	{
-	       	delete[] data_;
-       	}
-
-        // adds element to the last avaialable position,
-        // resizes vector if current capacity is reached
-        void push_back(int num)
-	{
-		if (this->size_ < this->capacity_){
-			this->data_[this->size_] = num;
-			size_ ++;
-		}
-		resize (2 * capacity_);	
-		
+	if (this->size_ < this->capacity_){
+		this->data_[this->size_] = num;
+		size_ ++;
 	}
-       
-        
-	int size()
-       	{ 
-		return this->size_; 
-	}
+	resize (2 * capacity_);	
+}
+  
+int size(){ return this->size_; }
 
-	/*
-        void set(int num, int idx)
-	{
-		return 	
-	} 
+void vector::set(int num, int idx)
+{	
+	data_[idx] = num;
+} 
 
-        int at(int idx)
-	{
+int vector:: at(int idx)
+{
+	return data_[idx];
+}
 
-	}
-	*/
-	
-	vector(const vector &other)
-	{
-		std::cout << "copy constructor" << std:: endl;
-		this->size_ = other.size_;
-		this->capacity_ = other.capacity_;
-		this->data_ = new int[this->capacity_];
-		
-		for (int i = 0; i < this->capacity_; i++)
-		{
-			this->data_[i] = other.data_[i];
+vector::vector (const vector &other)
+	: capacity_(other.capacity_),
+	  size_(other_size_),
+	  data_(new int[capacity])
+{
+	std::copy(other.data_, other.data_ + size_, data_);
+}
 
-		}
-	}
+vector &vector:: operator = (const vector &other)
+{
+	capacity_ = other.capacity_;
+	size_ = other.size_;
+ 	std::swap(data_, other.data_);
+ 	return *this;
+}	
 
-	vector &  operator = (const vector &other)
-	{
-		std::cout << " operator = " << std::endl;
-		this->size_ = other.size_;
-		
-		if(this->data_ != nullptr)
-		{
-			delete[] this->data_;
-		}
-		this->data_ = new int[other.size_];
+// resizes vector to given capacity
+void vector::resize(int newCapacity)
+{
+	int *newData = new int[newCapacity];
+	std::copy(data_, data_ + size_, newData);
+	delete [] newData;
+	data_ = newData;
+	capacity_ = newCapacity;
+}
 
-		for (int i = 0; i < other.size_; i++)
-		{
-			this->data_[i] = other.data_[i];
-		}
-		return *this;
-	}	
-	
-	private:
-		int *data_;
-                int size_;
-                int capacity_;
 
-		// resizes vector to given capacity
-		void resize(int newCapacity)
-	       	{
-               		int *newData = new int[newCapacity];
-               		for (size_t i = 0; i < capacity_; i++)
-			{
-                        	newData[i] = this->data_[i];
-                	}
-			delete [] newData;
-			data_ = newData;
-			capacity_ = newCapacity;
-        	}
-
-};
 
 int main(int argc, char **argv)
 {
-	vector vect1(50);
-	vector vect2(vect1); //vector vect2 = vect1;
+	vector v;
 }
