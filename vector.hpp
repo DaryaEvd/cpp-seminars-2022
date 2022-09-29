@@ -13,7 +13,7 @@ class vector
 		int at(int idx);
 
 		vector(const vector &other);
-		vector &  operator = (const vector &other);		
+		vector & operator = (const vector &other);		
 		
 		int &operator[](size_t idx);
 

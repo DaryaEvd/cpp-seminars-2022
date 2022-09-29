@@ -1,3 +1,4 @@
+
 #include "vector.hpp"
 
 #include <algorithm>
@@ -5,7 +6,7 @@
 #include <iostream>
 
 vector::vector(int capacity)
-	: capacity_(capacity), size_(0), data_(new int[capacity]) {}	
+	: capacity_(capacity), size_(0), data_(new int[capacity]) {}
 
 ~vector() { delete[] data_;}
 
@@ -17,15 +18,15 @@ void vector:: push_back(int num)
 		this->data_[this->size_] = num;
 		size_ ++;
 	}
-	resize (2 * capacity_);	
+	resize (2 * capacity_);
 }
-  
+
 int size(){ return this->size_; }
 
 void vector::set(int num, int idx)
-{	
+{
 	data_[idx] = num;
-} 
+}
 
 int vector:: at(int idx)
 {
@@ -46,7 +47,13 @@ vector &vector:: operator = (const vector &other)
 	size_ = other.size_;
  	std::swap(data_, other.data_);
  	return *this;
-}	
+}
+
+int &vector::operator[](size_t idx)
+{
+	assert(idx >= 0 && idx <= size_);
+	return data_[idx];
+}
 
 // resizes vector to given capacity
 void vector::resize(int newCapacity)
