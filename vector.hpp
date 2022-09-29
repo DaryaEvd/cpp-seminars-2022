@@ -5,17 +5,14 @@ class vector
 {
 	public:
 		vector(int capacity = 8);
-		~vector();
-		
+		vector(const vector &other);
+		vector &operator = (const vector &other);
+		int &operator[](size_t idx);
+
 		void push_back(int num);
 		int size();
-		void set(int num, int idx);
-		int at(int idx);
 
-		vector(const vector &other);
-		vector & operator = (const vector &other);		
-		
-		int &operator[](size_t idx);
+		~vector();		
 
 	private:
 		int capacity_;
